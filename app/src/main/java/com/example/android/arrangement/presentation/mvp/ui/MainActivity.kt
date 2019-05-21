@@ -18,10 +18,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 import toothpick.Toothpick
 import javax.inject.Inject
 
-class MainActivity : MvpAppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView{
+
+
     private lateinit var arrangementService: ArrangementService
     private var bound: Boolean = false
     private val handler = Handler()
+
 
     @Inject
     @InjectPresenter
@@ -34,6 +37,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         Toothpick.inject(this, scope)
         super.onCreate(savedInstanceState)
         setContentView(com.example.android.arrangement.R.layout.activity_main)
+
         button.setOnClickListener { showArrangement() }
     }
 
