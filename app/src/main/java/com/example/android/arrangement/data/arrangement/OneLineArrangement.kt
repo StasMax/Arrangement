@@ -5,9 +5,9 @@ import java.util.*
 
 class OneLineArrangement: ChessArrangement {
     override fun arrangement(): Array<Array<String>> {
-val arrangement: Array<Array<String>> = Array( heightChessField) { Array(widthChessField) {emptyField} }
+val arrangement: Array<Array<String>> = Array( HEIGHT_CHESS_FIELD) { Array(WIDTH_CHESS_FIELD) {EMPTY_FIELD} }
         val random = Random()
-        arrangement[random.nextInt(heightChessField - 1)] = Array(widthChessField) {fieldWithFigure}
+        arrangement[random.nextInt(HEIGHT_CHESS_FIELD - 1)] = Array(WIDTH_CHESS_FIELD) {FIELD_WITH_FIGURE}
         return arrangement
     }
 }

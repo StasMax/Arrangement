@@ -1,9 +1,9 @@
 package com.example.android.arrangement.data.arrangement
 
-import com.example.android.arrangement.emptyField
-import com.example.android.arrangement.fieldWithFigure
-import com.example.android.arrangement.heightChessField
-import com.example.android.arrangement.widthChessField
+import com.example.android.arrangement.EMPTY_FIELD
+import com.example.android.arrangement.FIELD_WITH_FIGURE
+import com.example.android.arrangement.HEIGHT_CHESS_FIELD
+import com.example.android.arrangement.WIDTH_CHESS_FIELD
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -14,13 +14,13 @@ class AllLinesWithOneFigure : ChessArrangement {
 
     override fun arrangement(): Array<Array<String>> {
         arrayNumbers = ArrayList()
-        val arrangement: Array<Array<String>> = Array(heightChessField) { Array(widthChessField) { emptyField } }
-        for (i in 0 until heightChessField) arrangement[i][randomIndex()] = fieldWithFigure
+        val arrangement: Array<Array<String>> = Array(HEIGHT_CHESS_FIELD) { Array(WIDTH_CHESS_FIELD) { EMPTY_FIELD } }
+        for (i in 0 until HEIGHT_CHESS_FIELD) arrangement[i][randomIndex()] = FIELD_WITH_FIGURE
         return arrangement
     }
 
     private fun randomIndex(): Int {
-        numberArray = random.nextInt(heightChessField)
+        numberArray = random.nextInt(HEIGHT_CHESS_FIELD)
         if (numberArray in arrayNumbers) {
             randomIndex()
         } else {

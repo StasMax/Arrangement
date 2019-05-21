@@ -11,6 +11,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <service
+                android:name=".presentation.service.ArrangementIntentService"
+                android:exported="false">
+        </service>
+        <service
                 android:name=".presentation.service.ArrangementService"
                 android:enabled="true"
                 android:exported="false">

@@ -1,18 +1,17 @@
 package com.example.android.arrangement.presentation.mvp.ui
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.example.android.arrangement.*
 import com.example.android.arrangement.presentation.app.App.Companion.scope
 import com.example.android.arrangement.presentation.mvp.presenter.MainPresenter
 import com.example.android.arrangement.presentation.mvp.view.MainView
+import com.example.android.arrangement.presentation.service.ArrangementIntentService
 import com.example.android.arrangement.presentation.service.ArrangementService
 import kotlinx.android.synthetic.main.activity_main.*
 import toothpick.Toothpick
@@ -22,6 +21,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     private lateinit var arrangementService: ArrangementService
     private var bound: Boolean = false
     private val handler = Handler()
+    private lateinit var receiver: BroadcastReceiver
 
     @Inject
     @InjectPresenter
@@ -33,25 +33,48 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         Toothpick.inject(this, scope)
         super.onCreate(savedInstanceState)
-        setContentView(com.example.android.arrangement.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
+        initReceiver()
         button.setOnClickListener { showArrangement() }
+    }
+
+    private fun initReceiver() {
+        receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                matrix1.text = intent?.getStringExtra(PARAM_ARR)
+            }
+        }
+        val intentFilter = IntentFilter(BROADCAST_ACTION)
+        registerReceiver(receiver, intentFilter)
     }
 
     override fun showArrangement() {
         if (bound) {
             handler.postDelayed({
-                matrix.text = arrangementService.getArrangements(1)
-                matrix1.text = arrangementService.getArrangements(1)
+                matrix.text = arrangementService.getArrangements(FIRST_ARRANGEMENT)
+
             }, 1000)
             handler.postDelayed({
-                matrix.text = arrangementService.getArrangements(2)
-                matrix1.text = arrangementService.getArrangements(2)
+                matrix.text = arrangementService.getArrangements(SECOND_ARRANGEMENT)
+
             }, 3000)
             handler.postDelayed({
-                matrix.text = arrangementService.getArrangements(3)
-                matrix1.text = arrangementService.getArrangements(3)
+                matrix.text = arrangementService.getArrangements(THIRD_ARRANGEMENT)
+
             }, 5000)
         }
+
+        val intent1 = Intent(this, ArrangementIntentService::class.java)
+        intent1.putExtra(PARAM_ARR, FIRST_ARRANGEMENT)
+        handler.postDelayed({ startService(intent1) }, 3000)
+
+        val intent2 = Intent(this, ArrangementIntentService::class.java)
+        intent2.putExtra(PARAM_ARR, SECOND_ARRANGEMENT)
+        handler.postDelayed({ startService(intent2) }, 5000)
+
+        val intent3 = Intent(this, ArrangementIntentService::class.java)
+        intent3.putExtra(PARAM_ARR, THIRD_ARRANGEMENT)
+        handler.postDelayed({ startService(intent3) }, 7000)
     }
 
     private val connection = object : ServiceConnection {
@@ -78,5 +101,10 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             unbindService(connection)
             bound = false
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(receiver)
     }
 }
