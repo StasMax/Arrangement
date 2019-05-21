@@ -22,17 +22,13 @@ class RandomWithOneEmptyField : ChessArrangement {
             pasteLine()
         } else {
             arrayNumbers.add(line)
-        }
-        if (line != 0) {
             arrayNumbers.add(line - 1)
-        }
-        if (line != widthChessField - 1) {
             arrayNumbers.add(line + 1)
-        }
-        rnd = random.nextInt(2)
-        repeat(widthChessField / 2) {
-            arrangement[line][rnd] = fieldWithFigure
-            rnd += 2
+            rnd = random.nextInt(2)
+            repeat(4) {
+                arrangement[line][rnd] = fieldWithFigure
+                rnd += 2
+            }
         }
     }
 }

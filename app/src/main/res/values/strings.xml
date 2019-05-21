@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Arrangement</string>
-    <string name="push_button">Нажмите на кнопку</string>
+    <string name="push_button1">Доска №1</string>
+    <string name="push_button2">Доска №2</string>
     <string name="start">СТАРТ</string>
+    <string name="screenshot">скриншот</string>
 </resources>

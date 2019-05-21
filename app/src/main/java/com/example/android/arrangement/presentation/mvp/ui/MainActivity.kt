@@ -39,9 +39,18 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun showArrangement() {
         if (bound) {
-            handler.postDelayed({ matrix.text = arrangementService.getArrangements(1) }, 1000)
-            handler.postDelayed({ matrix.text = arrangementService.getArrangements(2) }, 3000)
-            handler.postDelayed({ matrix.text = arrangementService.getArrangements(3) }, 5000)
+            handler.postDelayed({
+                matrix.text = arrangementService.getArrangements(1)
+                matrix1.text = arrangementService.getArrangements(1)
+            }, 1000)
+            handler.postDelayed({
+                matrix.text = arrangementService.getArrangements(2)
+                matrix1.text = arrangementService.getArrangements(2)
+            }, 3000)
+            handler.postDelayed({
+                matrix.text = arrangementService.getArrangements(3)
+                matrix1.text = arrangementService.getArrangements(3)
+            }, 5000)
         }
     }
 
