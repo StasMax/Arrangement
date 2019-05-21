@@ -4,4 +4,6 @@
     <string name="push_button2">Доска №2</string>
     <string name="start">СТАРТ</string>
     <string name="screenshot">скриншот</string>
+    <string name="name1">Service \n Callable</string>
+    <string name="name2">IntentService \n BroadcastReciever</string>
 </resources>

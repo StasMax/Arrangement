@@ -15,20 +15,20 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/button"
-            app:layout_constraintVertical_bias="0.335"
-            android:layout_marginStart="20dp"/>
+            app:layout_constraintVertical_bias="0.451"
+            android:layout_marginLeft="24dp"/>
 
     <TextView
             android:id="@+id/matrix1"
-            android:text="@string/push_button1"
+            android:text="@string/push_button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/button" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.34"/>
+            app:layout_constraintVertical_bias="0.458"/>
 
     <Button
             android:text="@string/start"
@@ -47,5 +47,21 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginTop="40dp"
             app:layout_constraintTop_toBottomOf="@+id/button" app:layout_constraintHorizontal_bias="0.498"/>
+    <TextView
+            android:text="@string/name1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView" app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="48dp"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/matrix"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/buttonScreen"
+            app:layout_constraintVertical_bias="0.163"/>
+    <TextView
+            android:text="@string/name2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="40dp"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toTopOf="@+id/matrix1"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/buttonScreen"
+            app:layout_constraintVertical_bias="0.163"/>
 
 </android.support.constraint.ConstraintLayout>
