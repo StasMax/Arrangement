@@ -18,13 +18,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import toothpick.Toothpick
 import javax.inject.Inject
 
-class MainActivity : MvpAppCompatActivity(), MainView{
-
-
+class MainActivity : MvpAppCompatActivity(), MainView {
     private lateinit var arrangementService: ArrangementService
     private var bound: Boolean = false
     private val handler = Handler()
-
 
     @Inject
     @InjectPresenter
@@ -37,15 +34,14 @@ class MainActivity : MvpAppCompatActivity(), MainView{
         Toothpick.inject(this, scope)
         super.onCreate(savedInstanceState)
         setContentView(com.example.android.arrangement.R.layout.activity_main)
-
         button.setOnClickListener { showArrangement() }
     }
 
     override fun showArrangement() {
         if (bound) {
-            handler.postDelayed({ matrix.text = arrangementService.getFirstArrangement() }, 1000)
-            handler.postDelayed({ matrix.text = arrangementService.getSecondArrangement() }, 3000)
-            handler.postDelayed({ matrix.text = arrangementService.getThirdArrangement() }, 5000)
+            handler.postDelayed({ matrix.text = arrangementService.getArrangements(1) }, 1000)
+            handler.postDelayed({ matrix.text = arrangementService.getArrangements(2) }, 3000)
+            handler.postDelayed({ matrix.text = arrangementService.getArrangements(3) }, 5000)
         }
     }
 
