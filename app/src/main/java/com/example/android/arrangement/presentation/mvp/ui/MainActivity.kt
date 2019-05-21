@@ -1,9 +1,13 @@
 package com.example.android.arrangement.presentation.mvp.ui
 
 import android.content.*
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.IBinder
+import android.util.Log
+import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -15,7 +19,14 @@ import com.example.android.arrangement.presentation.service.ArrangementIntentSer
 import com.example.android.arrangement.presentation.service.ArrangementService
 import kotlinx.android.synthetic.main.activity_main.*
 import toothpick.Toothpick
+import java.io.File
+import java.io.FileOutputStream
+import java.util.*
 import javax.inject.Inject
+import android.R.attr.name
+import android.graphics.drawable.BitmapDrawable
+import java.io.OutputStreamWriter
+
 
 class MainActivity : MvpAppCompatActivity(), MainView {
     private lateinit var arrangementService: ArrangementService
@@ -36,6 +47,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
         setContentView(R.layout.activity_main)
         initReceiver()
         button.setOnClickListener { showArrangement() }
+        buttonScreen.setOnClickListener { v -> screenShot(v) }
     }
 
     private fun initReceiver() {
@@ -106,5 +118,50 @@ class MainActivity : MvpAppCompatActivity(), MainView {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(receiver)
+    }
+
+    fun screenShot(view: View) {
+
+        val now = Date()
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now)
+       // val view = window.decorView.rootView
+        view.isDrawingCacheEnabled = true
+        view.buildDrawingCache()
+        val b = view.drawingCache
+        //   val bitmapDrawable = BitmapDrawable(resources, b)
+
+        try {
+            val sddir = File("$FOLDER_TO_SAVE/$now.jpg")
+            if (!sddir.exists()) {
+                sddir.mkdirs()
+            }
+            val fos = FileOutputStream(sddir)
+            b.compress(Bitmap.CompressFormat.JPEG, 90, fos)
+
+            fos.flush()
+            fos.close()
+        } catch (e: Exception) {
+        }
+
+
+        /*   try {
+               val mPath = "$SCREEN_LOCATION/$now/screen.jpg"
+
+               val v1 = window.decorView.rootView
+               v1.isDrawingCacheEnabled = true
+               val bitmap = Bitmap.createBitmap(v1.drawingCache)
+               v1.isDrawingCacheEnabled = false
+               val imageFile = File(mPath)
+               if (!imageFile.exists()) {
+                   imageFile.mkdirs()
+               }
+               val outputStream = FileOutputStream(imageFile)
+               val quality = 100
+               bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+               outputStream.flush()
+               outputStream.close()
+               //   openScreenshot(imageFile)
+           } catch (e: Throwable) {
+           }*/
     }
 }
